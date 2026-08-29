@@ -1,4 +1,4 @@
-# py-RC1882-mioty
+# rc1882-mioty
 
 A Python driver — and optional [MCP](https://modelcontextprotocol.io) server — for the
 [Radiocrafts RC1882CEF-MIOTY1](https://radiocrafts.com/products/mioty-network/) mioty®
