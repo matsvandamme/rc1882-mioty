@@ -50,18 +50,38 @@ pip install -e ".[mcp]"          # + the MCP server
 ## Quick start
 
 ```python
-from rc1882_mioty import RC1882Mioty
+from rc1882_mioty import RC1882Mioty, MiotyCommandError
 
 with RC1882Mioty("/dev/ttyUSB0") as modem:
-    print(modem.get_modem_info())        # I:Radiocrafts;MIOTY1_2.0.0
-    print(modem.get_eui().hex())         # the module's unique EUI64
-    modem.send_unidirectional(b"HelloWorld")
+    info = modem.get_modem_info()
+    eui = modem.get_eui()
+    print(f"{info.vendor} module, EUI64 {eui.hex()}")
+
+    try:
+        result = modem.send_unidirectional(b"HelloWorld")
+        print(f"sent — packet counter is now {result.packet_counter}")
+    except MiotyCommandError as e:
+        print(f"module rejected the send (status {e.status}): {e}")
 ```
 
-Every method maps to one documented AT command and returns a typed result (a
-`dataclass`, an `IntEnum`, or plain `bytes`/`int`) rather than a raw string. Errors are
-raised as one of the typed exceptions below rather than returned as ambiguous strings —
-see `rc1882_mioty/exceptions.py`.
+Output against a real module:
+```
+Radiocrafts module, EUI64 00124b001cbce31b
+sent — packet counter is now 1
+```
+
+Every method maps to one documented AT command (see the [AT command
+reference](#at-command-reference) below) and returns a typed result — a `dataclass`, an
+`IntEnum`, or plain `bytes`/`int` — instead of a raw AT response string. Failures raise one
+of a small set of typed exceptions (`MiotyTimeoutError`, `MiotyCommandError`,
+`MiotyIncompleteResponseError`) instead of an ambiguous string, so you can catch exactly
+the failure mode you care about — see [Reliability design](#reliability-design) below and
+`rc1882_mioty/exceptions.py`. `RC1882Mioty` is also thread-safe to share across a
+long-running application, and works as a plain object (`modem = RC1882Mioty(...)`,
+`modem.open()` / `modem.close()`) if you'd rather not use it as a context manager.
+
+Want an LLM agent driving the module instead of writing Python? Skip to
+[MCP server](#mcp-server).
 
 ## AT command reference
 
