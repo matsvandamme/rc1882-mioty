@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rc1882-mioty"
+version = "0.1.0"
+description = "AT command driver for the Radiocrafts RC1882CEF-MIOTY1 mioty module"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "PolyForm-Noncommercial-1.0.0" }
+dependencies = ["pyserial>=3.5"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "pytest-mock>=3.0", "ruff>=0.1", "mypy>=1.0"]
+mcp = ["mcp[cli]>=2.0"]
+
+[project.scripts]
+rc1882-mioty-mcp = "rc1882_mioty_mcp.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["rc1882_mioty*", "rc1882_mioty_mcp*"]
+
+[tool.setuptools.package-data]
+rc1882_mioty = ["py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "C4", "UP"]
+dummy-variable-rgx = "^_$"
+
+[tool.mypy]
+python_version = "3.10"
+disallow_untyped_defs = true
+warn_return_any = true
