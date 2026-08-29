@@ -9,7 +9,27 @@ description = "AT command driver for the Radiocrafts RC1882CEF-MIOTY1 mioty modu
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "PolyForm-Noncommercial-1.0.0" }
+authors = [{ name = "matsvandamme", email = "matthieu@vmat-contracting.be" }]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Communications",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: System :: Hardware :: Hardware Drivers",
+]
 dependencies = ["pyserial>=3.5"]
+
+[project.urls]
+Homepage = "https://github.com/matsvandamme/py-RC1882-mioty"
+Repository = "https://github.com/matsvandamme/py-RC1882-mioty"
+Issues = "https://github.com/matsvandamme/py-RC1882-mioty/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=7.0", "pytest-mock>=3.0", "ruff>=0.1", "mypy>=1.0"]
