@@ -240,9 +240,6 @@ pytest                                              # mocked, no hardware needed
 RC1882_MIOTY_TEST_PORT=/dev/ttyUSB0 pytest tests/test_mcp_integration.py   # real hardware
 ```
 
-`test.py` and `stress_test.py` at the repo root are interactive/manual tools for playing
-with and stress-testing a connected module — not part of the pytest suite.
-
 ## License
 
 [PolyForm Noncommercial License 1.0.0](LICENSE) — free for any noncommercial use;
